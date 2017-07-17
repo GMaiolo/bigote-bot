@@ -1,3 +1,5 @@
+const { firstToLowerCase } = require('./utils')
+
 const persons = [
     {
         name: 'alfredo',
@@ -36,4 +38,11 @@ const persons = [
     }
 ]
 
-module.exports = persons
+module.exports = function talkAboutNamedPeople(str) {
+    return persons.reduce((answer, person) => {
+        if (person.test(str)) {
+            return answer ? `${answer} y ${firstToLowerCase(person.msg)}` : person.msg
+        }
+        return answer
+    }, '')
+}
