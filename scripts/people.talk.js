@@ -8,7 +8,7 @@ const persons = [
     },
     {
         name: 'nico',
-        test: (str) => /nico|nicolás/ig.test(str),
+        test: (str) => /^nico($|(\s|\W))|nicol(a|á)s/ig.test(str),
         msg: process.env.NICO_MSG,
     },
     {
@@ -18,12 +18,12 @@ const persons = [
     },
     {
         name: 'santi',
-        test: (str) => /santi|062|capitan|capitán/ig.test(str),
+        test: (str) => /santi|062|capit(a|á)n/ig.test(str),
         msg: process.env.SANTI_MSG,
     },
     {
         name: 'gus',
-        test: (str) => /(\sgus(\s|$))|tavo|afip/ig.test(str),
+        test: (str) => /^gus($|(\s|\W))|\s(gus($|(\s|\W)))|afip/ig.test(str),
         msg: process.env.GUS_MSG,
     },
     {
@@ -33,7 +33,7 @@ const persons = [
     },
     {
         name: 'fer',
-        test: (str) => /(\s(fer|nando)(\s|$))/ig.test(str),
+        test: (str) => /^fer($|(\s|\W))|\s(fer($|(\s|\W)))|nando/ig.test(str),
         msg: process.env.FER_MSG,
     }
 ]
