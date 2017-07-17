@@ -13,7 +13,7 @@ const persons = [
     },
     {
         name: 'mati',
-        test: (str) => /mati|matías/ig.test(str),
+        test: (str) => /^mati($|(\s|\W))|\s(mati($|(\s|\W)))|matías/ig.test(str),
         msg: process.env.MATI_MSG,
     },
     {
