@@ -3,7 +3,7 @@ const talkAboutNamedPeople = require('./people.talk')
 const { takeChance } = require('./utils')
 const client = new Discord.Client()
 
-client.on('ready', () => console.log('Bot ready.'))
+client.on('ready', () => console.log('Bot ready.'));
 
 client.on('message', message => {
     /* avoid execution if parsed message is from a bot */
@@ -16,6 +16,10 @@ client.on('message', message => {
     if (answer) {
         message.channel.send(answer)
     }
+})
+
+client.on('serverNewMember',  (server, user) => {
+    user.sendMessage('Welcome to cartulo, tio!')
 })
 
 client.login(process.env.BIGOTE_BOT_TOKEN)
