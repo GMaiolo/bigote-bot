@@ -3,7 +3,7 @@ const talkAboutNamedPeople = require('./people.talk')
 const { takeChance } = require('./utils')
 const client = new Discord.Client()
 
-client.on('ready', () => console.log('Bot ready.'))
+client.on('ready', () => console.log('Bot ready.'));
 
 client.on('message', message => {
     /* avoid execution if parsed message is from a bot */
