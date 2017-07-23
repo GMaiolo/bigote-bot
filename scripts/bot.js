@@ -18,8 +18,12 @@ client.on('message', message => {
     }
 })
 
-client.on('serverNewMember',  (server, user) => {
-    user.sendMessage('Welcome to cartulo, tio!')
+client.on('guildMemberAdd', (guild, member) => {
+    console.log(`${member.user.username} joined ${guild.name}`)
+    const channel = client.channels.find('random', 'member-log')
+    
+    if (!channel) return
+    channel.send(`Welcome to cartulo, bigote ${member}`)
 })
 
 client.login(process.env.BIGOTE_BOT_TOKEN)
