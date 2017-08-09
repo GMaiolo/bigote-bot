@@ -19,7 +19,7 @@ client.on('message', message => {
     } else if (takeChance(10)) {
         answer = talkAboutNamedPeople(message.content)
     } else if (/offtopic/ig.test(message.content)) {
-        annswer = process.env.OFFTOPIC
+        answer = process.env.OFFTOPIC
     }
     if (answer) {
         message.channel.send(answer)
