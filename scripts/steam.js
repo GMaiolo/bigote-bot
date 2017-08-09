@@ -41,7 +41,7 @@ exports.getPubgPrices = function (hashesArr = marketHashes) {
 */
 exports.pipePubgPrices = function(steamMarketObjs) {
     return steamMarketObjs.reduce((acc, curr) => {
-        const pretty = `${curr.name}\n` 
+        const pretty = `${curr.name}\n\n` 
         + `Precio mas bajo: ${curr.lowest_price}\n`
         + `Cantidad: ${curr.volume}\n`
         + `Precio promedio: ${curr.median_price}\n`
