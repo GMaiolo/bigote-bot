@@ -14,7 +14,8 @@ client.on('message', message => {
     if (message.content.toLowerCase() === 'pubg market') {
         return getPubgPrices()
             .then(pipePubgPrices)
-            .then(message.channel.send);
+            .then(message.channel.send)
+            .catch(err => console.log(`[Error] on http request for pubg market`, err))
     } else if (takeChance(10)) {
         answer = talkAboutNamedPeople(message.content)
     } else if (/offtopic/ig.test(message.content)) {
