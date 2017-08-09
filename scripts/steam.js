@@ -39,13 +39,20 @@ exports.getPubgPrices = function (hashesArr = marketHashes) {
      name: 'GAMESCOM INVITATIONAL CRATE' 
 }
 */
+const markup = {
+    start: '\`\`\`py\n',
+    end: '\`\`\`', 
+    separator: '_____',
+    nl: '\n',
+}
 exports.pipePubgPrices = function(steamMarketObjs) {
-    return steamMarketObjs.reduce((acc, curr) => {
-        const pretty = `${curr.name}\n\n` 
-        + `Precio mas bajo: ${curr.lowest_price}\n`
-        + `Cantidad: ${curr.volume}\n`
-        + `Precio promedio: ${curr.median_price}\n`
-        + '____________________________\n\n';
+    const len = steamMarketObjs.length
+    return steamMarketObjs.reduce((acc, curr, i) => {
+        const pretty = `${curr.name}${markup.nl.repeat(2)}` 
+        + `Precio mas bajo: ${curr.lowest_price}${markup.nl}`
+        + `Cantidad: ${curr.volume}${markup.nl}`
+        + `Precio promedio: ${curr.median_price}${markup.nl}`
+        + `${i < len-1 ? markup.separator : markup.end}${markup.nl.repeat(2)}`;
         return acc + pretty
-    }, '')
+    }, markup.start)
 }
