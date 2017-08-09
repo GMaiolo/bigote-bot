@@ -11,7 +11,7 @@ client.on('message', message => {
     /* avoid execution if parsed message is from a bot */
     if (message.author.bot) return
     let answer
-    if (message.content.toLowerCase() === 'pubg market'.to) {
+    if (message.content.toLowerCase() === 'pubg market') {
         return getPubgPrices()
             .then(pipePubgPrices)
             .then(message.channel.send);
