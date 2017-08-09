@@ -6,7 +6,9 @@
     "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
-    "discord.js": "^11.1.0"
+    "discord.js": "^11.1.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
   },
   "engines": {
     "node": "8.1.x"

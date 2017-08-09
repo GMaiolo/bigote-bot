@@ -2,18 +2,22 @@ const Discord = require('discord.js')
 const talkAboutNamedPeople = require('./people.talk')
 const { takeChance } = require('./utils')
 const definitions = require('./definitions')
+const { getPubgPrices, pipePubgPrices } = require('./steam')
 const client = new Discord.Client()
 
 client.on('ready', () => console.log('Bot ready.'));
 
 client.on('message', message => {
-    /* avoid execution if parsed message is from a bot */    
+    /* avoid execution if parsed message is from a bot */
     if (message.author.bot) return
-    const gotLucky = takeChance(10)
     let answer
-    if(gotLucky) {
+    if (message.content.toLowerCase() === 'pubg market'.to) {
+        return getPubgPrices()
+            .then(pipePubgPrices)
+            .then(message.channel.send);
+    } else if (takeChance(10)) {
         answer = talkAboutNamedPeople(message.content)
-    } else if(/offtopic/ig.test(message.content)) {
+    } else if (/offtopic/ig.test(message.content)) {
         annswer = process.env.OFFTOPIC
     }
     if (answer) {
