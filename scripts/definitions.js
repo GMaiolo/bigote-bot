@@ -14,6 +14,18 @@ module.exports = {
         hardware: 'hardware-talk'
     },
 
+    commands : {
+        pubgMarket: '/pubgmarket',
+        offtopic: '/offtopic',
+        cleanChannels: '/cleanchannels'
+    },
+
+    channelTypes : {
+        voice: 'voice'
+    },
+
+    exclusiveVoiceChannels : ['general'],
+
     getGreetingMessage: () => {
         return greetingMessages[Math.floor(Math.random()*greetingMessages.length)]
     }
