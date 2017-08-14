@@ -1,7 +1,6 @@
 const greetingMessages = ['a new member has joined Cartulo.',
                         'we have a new nerd among us.',
-                        'one of us... one of us... one of us...',
-                        'en taro Cartulo.']
+                        'hey, there is anothe nerd in our ranks.']
 
 const commands = {
         pubgMarket: { command: '/pubgmarket', description: 'Get pubg crates value in real time.', public: true },

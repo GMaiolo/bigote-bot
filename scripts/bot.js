@@ -24,7 +24,7 @@ client.on('guildMemberAdd', (member) => {
     channel.send(`${everyone}, ${greetingMessage} Welcome ${member}!`)
 })
 
-client.login('MzQxMzQzNDkzMzg3NDUyNDE5.DG0i-A.4nW_91bDO5MGaTsrxuT_vpuK7Oo')
+client.login(process.env.BIGOTE_BOT_TOKEN)
 
 function checkNamedPeople(message) {
     let answer
@@ -48,7 +48,7 @@ function checkCommands(message, client) {
             break;
     
         case botCommands.offtopic.command:
-            message.channel.send('process.env.OFFTOPIC')
+            message.channel.send(process.env.OFFTOPIC)
             break;
         
         case botCommands.cleanChannels.command:
