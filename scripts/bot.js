@@ -67,6 +67,10 @@ function checkCommands(message, client) {
             message.channel.send(definitions.getHelpMessage())
             break;
 
+        case botCommands.pubgSchedule.command:
+            message.channel.send(definitions.getPubgSchedule())
+            break;
+
         default:
             break;
     }
