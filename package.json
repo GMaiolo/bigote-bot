@@ -10,7 +10,7 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },
-  "engines": {
+  "engines": { 
     "node": "8.1.x"
   }
 }
