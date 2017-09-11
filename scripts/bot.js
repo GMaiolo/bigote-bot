@@ -3,6 +3,7 @@ const talkAboutNamedPeople = require('./people.talk')
 const utils = require('./utils')
 const definitions = require('./definitions')
 const { getPubgPrices, pipePubgPrices } = require('./steam')
+const pubg = require('./pubg')
 const client = new Discord.Client()
 
 client.on('ready', () => console.log('Bot ready.'));
@@ -38,8 +39,8 @@ function checkNamedPeople(message) {
 
 function checkCommands(message, client) {
     const botCommands = definitions.getBotCommands();
-
-    switch (message.content.toLowerCase()) {
+    let message = message.content.toLowerCase();
+    switch (message) {
         case botCommands.pubgMarket.command:
             return getPubgPrices()
             .then(pipePubgPrices)
@@ -68,6 +69,19 @@ function checkCommands(message, client) {
             break;
 
         default:
+            if (message.indexOf(botCommands.pubgRank.command) > -1) {
+                let playerName = message.split(" ")[1];
+
+                if (playerName) {
+                    return pubg.getRankByPlayerName(playerName)
+                    .then(msg => message.channel.send(msg))
+                    .catch(err => console.log(`[Error] on http request for pubgRank`, err));
+                }
+
+                message.channel.send("Please write a player name.");
+            }
+
+
             break;
     }
 }

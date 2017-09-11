@@ -7,6 +7,7 @@ const commands = {
         offtopic: { command: '/offtopic', description: 'Alert the users to use the correct channel.', public: true },
         cleanChannels: { command: '/cleanchannels', description: 'Delete all voice channels that are not being used.', public: false },
         help: { command: '/help', description: 'List all commands Bigote-bot has.', public: true },
+        pubgRank: { command: '/pubgRank', description: 'Shows a player pubg rank. Usage /pubgRank <PubgName>', public: true }
     }
 
 module.exports = {
