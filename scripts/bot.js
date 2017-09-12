@@ -6,7 +6,10 @@ const { getPubgPrices, pipePubgPrices } = require('./steam')
 const pubg = require('./pubg')
 const client = new Discord.Client()
 
-client.on('ready', () => console.log('Bot ready.'));
+client.on('ready', () => { 
+    console.log('Bot ready.') 
+    runAutomatedCommands()
+});
 
 client.on('message', message => {
     /* avoid execution if parsed message is from a bot */    
@@ -53,19 +56,15 @@ function checkCommands(message, client) {
             break;
         
         case botCommands.cleanChannels.command:
-            let channels = client.channels.filterArray( chan => chan.type == definitions.channelTypes.voice &&
-                                                                definitions.exclusiveVoiceChannels.indexOf(chan.name.toLowerCase()) == -1 &&
-                                                                chan.members.size == 0);
-            channels.forEach(chan =>                 
-                 chan.delete()
-                 .then(console.log(`Empty voice channels were deleted`))
-                 .catch(err => console.log(`[Error] while deleting a voice channel`, err))
-            )
-
+            cleanChannels()
             break;
         
         case botCommands.help.command:
             message.channel.send(definitions.getHelpMessage())
+            break;
+
+        case botCommands.pubgSchedule.command:
+            message.channel.send(definitions.getPubgSchedule())
             break;
 
         default:
@@ -84,4 +83,20 @@ function checkCommands(message, client) {
 
             break;
     }
+}
+
+function cleanChannels() {
+    let channels = client.channels.filterArray( chan => chan.type == definitions.channelTypes.voice &&
+        definitions.exclusiveVoiceChannels.indexOf(chan.name.toLowerCase()) == -1 &&
+        chan.members.size == 0);
+
+    channels.forEach(chan =>                 
+        chan.delete()
+        .then(console.log(`Empty voice channels were deleted`))
+        .catch(err => console.log(`[Error] while deleting a voice channel`, err))
+    )
+}
+
+function runAutomatedCommands() {
+    setInterval(() => { cleanChannels() } ,1800000)
 }
