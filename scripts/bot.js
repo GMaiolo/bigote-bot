@@ -3,6 +3,7 @@ const talkAboutNamedPeople = require('./people.talk')
 const utils = require('./utils')
 const definitions = require('./definitions')
 const { getPubgPrices, pipePubgPrices } = require('./steam')
+const pubg = require('./pubg')
 const client = new Discord.Client()
 
 client.on('ready', () => { 
@@ -16,6 +17,7 @@ client.on('message', message => {
         
     checkCommands(message, client);
     checkNamedPeople(message);    
+    checkPubgRank(message);
 })
 
 client.on('guildMemberAdd', (member) => {
@@ -39,9 +41,28 @@ function checkNamedPeople(message) {
     } 
 }
 
-function checkCommands(message, client) {
+function checkPubgRank(serverContent) {
+    let message = serverContent.content.toLowerCase();
     const botCommands = definitions.getBotCommands();
 
+    if (message.indexOf(botCommands.pubgRank.command) > -1) {
+        let splitted = message.split(" ");
+        let playerName = splitted[1];
+        let server = splitted[2];
+        let mode = splitted[3];
+
+        if (playerName) {
+            pubg.getRankByPlayerName(playerName, server, mode, serverContent);
+            return
+        }
+
+        serverContent.channel.send(pubg.getHelp());
+    }
+};
+
+function checkCommands(message, client) {
+    const botCommands = definitions.getBotCommands();
+    
     switch (message.content.toLowerCase()) {
         case botCommands.pubgMarket.command:
             return getPubgPrices()
