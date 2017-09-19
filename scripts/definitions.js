@@ -8,7 +8,7 @@ const commands = {
         cleanChannels: { command: '/cleanchannels', description: 'Delete all voice channels that are not being used.', public: false },
         help: { command: '/help', description: 'List all commands Bigote-bot has.', public: true },
         pubgSchedule: { command: '/pubgschedule', description:`Get the training schedule for 062 PLAYERSUNKNOWN'S BATTLEGROUNDS competition team`, public: true },
-        pubgRank: { command: '/pubgRank', description: 'Shows a player pubg rank. Usage /pubgRank <PubgName>', public: true }
+        pubgRank: { command: '/pubgrank', description: 'Shows a player pubg rank. Usage /pubgRank help for internal commands', public: true }
     }
 
 const pubgSchedule = `@manker 
