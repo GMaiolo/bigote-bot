@@ -17,6 +17,7 @@ client.on('message', message => {
         
     checkCommands(message, client);
     checkNamedPeople(message);    
+    checkPubgRank(message);
 })
 
 client.on('guildMemberAdd', (member) => {
@@ -40,10 +41,27 @@ function checkNamedPeople(message) {
     } 
 }
 
+function checkPubgRank(message) {
+    let message = message.content.toLowerCase();
+    const botCommands = definitions.getBotCommands();
+    
+    if (message.indexOf(botCommands.pubgRank.command) > -1) {
+        let playerName = message.split(" ")[1];
+
+        if (playerName) {
+            return pubg.getRankByPlayerName(playerName)
+            .then(msg => message.channel.send(msg))
+            .catch(err => console.log(`[Error] on http request for pubgRank`, err));
+        }
+
+        message.channel.send("Please write a player name.");
+    }
+};
+
 function checkCommands(message, client) {
     const botCommands = definitions.getBotCommands();
-    let message = message.content.toLowerCase();
-    switch (message) {
+    
+    switch (message.content.toLowerCase()) {
         case botCommands.pubgMarket.command:
             return getPubgPrices()
             .then(pipePubgPrices)
@@ -68,19 +86,6 @@ function checkCommands(message, client) {
             break;
 
         default:
-            if (message.indexOf(botCommands.pubgRank.command) > -1) {
-                let playerName = message.split(" ")[1];
-
-                if (playerName) {
-                    return pubg.getRankByPlayerName(playerName)
-                    .then(msg => message.channel.send(msg))
-                    .catch(err => console.log(`[Error] on http request for pubgRank`, err));
-                }
-
-                message.channel.send("Please write a player name.");
-            }
-
-
             break;
     }
 }
