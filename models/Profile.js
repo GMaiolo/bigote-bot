@@ -1,4 +1,4 @@
-const { MATCH, SEASON, REGION } = require('./constants');
+const { MATCH, SEASON, REGION, Fields } = require('./constants');
 const { StatsNotFound } = require('./errors');
 
 function formatProperty(prop) {
@@ -41,28 +41,21 @@ class Profile {
             && stat.Match === this.selectedMatch
         )).Stats;
 
-        return `    
-            Server:` + this.selectedRegion +
-            `
-            Season:` + this.defaultSeason +
-            `
-            Match Mode:` + this.selectedMatch +
-            `
-            ` + this.playerName + ` Stats ->
+        let statProperties = "";
+        
+        for (var x = 0; x < selectedStats.length; x++) {
+            let isVisible = Fields.filter(fil => (fil.visible && fil.field === selectedStats[x].field));
 
-            K/D Ratio:` + findStat(selectedStats, 'KillDeathRatio').displayValue +
-            `
-            Win%:` + findStat(selectedStats, 'WinRatio').displayValue +
-            `
-            Wins:` + findStat(selectedStats, 'Wins').displayValue +
-            `
-            Loses:` + findStat(selectedStats, 'Losses').displayValue + 
-            `
-            Rating;` + findStat(selectedStats, 'Rating').displayValue +
-            `
-            Best Rating:` + findStat(selectedStats, 'BestRating').displayValue +
-            `
-            Longest Distance Kill:` + findStat(selectedStats, 'LongestKill').displayValue;
+            if (isVisible && isVisible.length > 0) {
+                statProperties +=  `\n${selectedStats[x].label}: ${selectedStats[x].displayValue}`;
+            }
+        }
+
+        return '\`\`\`py\nServer:' + this.selectedRegion +
+            '\nSeason: ' + this.defaultSeason +
+            '\nMatch Mode: ' + this.selectedMatch +
+            '\n\n' + this.playerName + ' Stats ->\n'
+            + statProperties + '\`\`\`';
     };
 
     getStats(options = {}, tiny) {
