@@ -29,8 +29,7 @@ client.on('guildMemberAdd', (member) => {
     channel.send(`${everyone}, ${greetingMessage} Welcome ${member}!`)
 })
 
-//client.login(process.env.BIGOTE_BOT_TOKEN)
-client.login("MzQxMzQzNDkzMzg3NDUyNDE5.DKKiNg.cYG88__U9wYAU6BnoDBbnXnz8LU")
+client.login(process.env.BIGOTE_BOT_TOKEN)
 
 function checkNamedPeople(message) {
     let answer
@@ -47,14 +46,17 @@ function checkPubgRank(serverContent) {
     const botCommands = definitions.getBotCommands();
 
     if (message.indexOf(botCommands.pubgRank.command) > -1) {
-        let playerName = message.split(" ")[1];
+        let splitted = message.split(" ");
+        let playerName = splitted[1];
+        let server = splitted[2];
+        let mode = splitted[3];
 
         if (playerName) {
-            pubg.getRankByPlayerName(playerName);
+            pubg.getRankByPlayerName(playerName, server, mode, serverContent);
             return
         }
 
-        serverContent.channel.send("Please write a player name.");
+        serverContent.channel.send(pubg.getHelp());
     }
 };
 
